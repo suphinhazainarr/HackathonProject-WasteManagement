@@ -1,0 +1,37 @@
+<h2 class="report-heading">Let Us Know What's Wrong</h2>
+
+<div class="report-container" [formGroup]="reportForm">
+  <h2>Upload your files</h2>
+  <p>File should be JPG, PNG, or PDF</p>
+
+  <!-- Photo Capture/Upload -->
+  <div class="file-upload" (click)="fileInput.click()">
+    <input #fileInput type="file" id="photo" (change)="capturePhoto($event)" accept="image/*, .pdf" hidden>
+    <img *ngIf="photoPreview" [src]="photoPreview" alt="Photo Preview" width="200" />
+    <div *ngIf="!photoPreview" class="upload-placeholder">
+      <p>Max. file size 15MB</p>
+      <p>Drag & Drop your file or</p>
+      <button type="button" class="upload-button">Browse File</button>
+    </div>
+  </div>
+
+  <!-- Description Field -->
+  <div class="description-field">
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description" placeholder="Describe the issue"></textarea>
+  </div>
+
+  <!-- Location Detector -->
+  <div class="location-section">
+    <button type="button" class="location-button" (click)="detectLocation()">Detect Location</button>
+    <div *ngIf="location">
+      <p>Latitude: {{ location.latitude }}</p>
+      <p>Longitude: {{ location.longitude }}</p>
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="button" class="submit-button" (click)="submitReport()" [disabled]="reportForm.invalid">
+    Submit Report
+  </button>
+</div>
